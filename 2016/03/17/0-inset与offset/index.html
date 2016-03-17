@@ -74,7 +74,7 @@ UIEdgeInsets&amp;gt;Defines inset distances for vie">
     </p>
   <p class="article-time">
     <time datetime="2016-03-17T06:01:09.000Z" itemprop="datePublished">2016-03-17</time>
-    更新日期:<time datetime="2016-03-17T09:11:39.000Z" itemprop="dateModified">2016-03-17</time>
+    更新日期:<time datetime="2016-03-17T09:15:35.000Z" itemprop="dateModified">2016-03-17</time>
     
   </p>
 </header>
@@ -91,18 +91,18 @@ UIEdgeInsets&amp;gt;Defines inset distances for vie">
 <pre><code>typedef struct { 
     CGFloat top, left , bottom, right ;
  } UIEdgeInsets;
-</code></pre><p>指的是一个view边框距离四周的距离，也就是上、下、左、右。相较于原始位置，正值表示压缩了，负值表示拉伸了。<br>Button控件有三个属性contentEdgeInsets, titleEdgeInsets, imageEdgeInset,分别对应content、title、image的inset，而content包括了title和image，能够同时影响它们。title和image的偏移是相较于当前位置的。<br>比如页面上有一个button，其中有title和image，然后配置它们的inset这个属性。原始是这样的：<br><img src="/Users/lijie/hexo/source/images/button.tiff" alt=""></p>
+</code></pre><p>指的是一个view边框距离四周的距离，也就是上、下、左、右。相较于原始位置，正值表示压缩了，负值表示拉伸了。<br>Button控件有三个属性contentEdgeInsets, titleEdgeInsets, imageEdgeInset,分别对应content、title、image的inset，而content包括了title和image，能够同时影响它们。title和image的偏移是相较于当前位置的。<br>比如页面上有一个button，其中有title和image，然后配置它们的inset这个属性。原始是这样的：<br><img src="/images/button.tiff" alt=""></p>
 <pre><code>- (void)configButton {
     self.btn.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0,0);
     self.btn.imageEdgeInsets = UIEdgeInsetsMake(10,10,10,0);
     self.btn.contentEdgeInsets = UIEdgeInsetsMake(10,0, 10, 0);
  }   
-</code></pre><p>   修改inset之后，button的title和image变成了这样，能够看出来image被压缩了并且向右移动，title向左移动了：<br>   <img src="/Users/lijie/hexo/source/images/button2.tiff" alt=""> </p>
+</code></pre><p>   修改inset之后，button的title和image变成了这样，能够看出来image被压缩了并且向右移动，title向左移动了：<br>   <img src="/images/button2.tiff" alt=""> </p>
 <h2 id="UIOffset"><a href="#UIOffset" class="headerlink" title="UIOffset"></a>UIOffset</h2><p>&gt;<br><em>Defines a structure that specifies an amount to offset a position.</em></p>
 <pre><code>typedef struct UIOffset { 
     CGFloat horizontal, vertical 
 } UIOffset;
-</code></pre><p>offset指的是一个point相对于源point的相对位移。在scrollview及其子类有一个属性contentOffset,就是content的origin与scrollview的origin的相对位移，当scrollview滑动的时候，visible area是不变的，动的是content view，所以才会有offset。iOS的基本坐标系是原点在左上角的，当content滚动到上面的时候，y &lt; 0,offset &gt; 0。<br><img src="/Users/lijie/hexo/source/images/coordinate.jpeg" alt=""></p>
+</code></pre><p>offset指的是一个point相对于源point的相对位移。在scrollview及其子类有一个属性contentOffset,就是content的origin与scrollview的origin的相对位移，当scrollview滑动的时候，visible area是不变的，动的是content view，所以才会有offset。iOS的基本坐标系是原点在左上角的，当content滚动到上面的时候，y &lt; 0,offset &gt; 0。<br><img src="/images/coordinate.jpeg" alt=""></p>
 <p>可以用一个公式归纳： </p>
 <pre><code>offset = (0,0) - (content.origin.x,content.origin.y)
 </code></pre><p> scrollView也有contentInset属性，比如contentInset = (-100, -100,0,0),content的origin就是（-100，-100），这时contentOffset = (100,100)。</p>
