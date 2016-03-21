@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>#2 Objective-C Generics | Lily&#39;s kara</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文
+  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  
+泛型是什么Objective-C现在可以声明一个NSArray为NSArray&amp;lt; NSString* &amp;gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIIm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="#2 Objective-C Generics">
+<meta property="og:url" content="http://leelili.github.io/2016/03/21/2-Objective-C-Generics/index.html">
+<meta property="og:site_name" content="Lily's kara">
+<meta property="og:description" content="原文
+  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  
+泛型是什么Objective-C现在可以声明一个NSArray为NSArray&amp;lt; NSString* &amp;gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIIm">
+<meta property="og:updated_time" content="2016-03-21T07:50:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="#2 Objective-C Generics">
+<meta name="twitter:description" content="原文
+  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  
+泛型是什么Objective-C现在可以声明一个NSArray为NSArray&amp;lt; NSString* &amp;gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIIm">
+  
+    <link rel="alternate" href="/atom.xml" title="Lily&#39;s kara" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Lily&#39;s kara</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://leelili.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2-Objective-C-Generics" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/21/2-Objective-C-Generics/" class="article-date">
+  <time datetime="2016-03-21T06:31:06.000Z" itemprop="datePublished">2016-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      #2 Objective-C Generics
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.russbishop.net/objective-c-generics" target="_blank" rel="external">原文</a></p>
+<p>  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  </p>
+<h1 id="泛型是什么"><a href="#泛型是什么" class="headerlink" title="泛型是什么"></a>泛型是什么</h1><p>Objective-C现在可以声明一个NSArray为NSArray&lt; NSString* &gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIImage*，会给出警告。但是真正有用是在和系统框架交互时，因为现在Swift里UIView.subviews返回值为Array&lt; UIView &gt; 而不是Array&lt; AnyObject &gt;。在桥接Objective-C老代码时也很有用，因为Swift所有集合自动执行此信息。  </p>
+<p>__kindof关键字指定必须是X或其子类。为什么需要指定呢？文档没有说明这点但是我推测是因为把泛型加入Objective-C中带来了巨大的复杂的问题：如果UIView.subviews是NSArray&lt; UIView* &gt;,那么根据编译器类型检查器一大片代码将失效：[view.subviews[0] setImage:nil]就是错误的因为UIView没有一个image的属性。我们早已经被Objective-C编译器允许让你向一个id发送消息宠坏了，但现在子视图数组不会返回id，返回UIView*。</p>
+<p>__kindof解决了这个问题，它声明了子视图数组不是隐式的UIView*类型的数组，而是UIView*子类型的数组。因此编译器可以让你发送任何UIView*或者其所有子类能够响应的消息，或者给数组赋值一个UIImageView*类型的元素，但是如果你试图：NSNumber *n = view.subviews[0]编译器仍然会警告。</p>
+<h1 id="泛型的限制"><a href="#泛型的限制" class="headerlink" title="泛型的限制"></a>泛型的限制</h1><p>这有个重要的局限：只有内置的集合类型能用这项新的机制从Swift桥接；自定义的方法和泛型类不起作用。(也许有一天Objective-C能够提供全部泛型支持，不过那将是一条痛苦曲折之路。)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://leelili.github.io/2016/03/21/2-Objective-C-Generics/" data-id="cim1oc8nb0001gjtxx7ss3gel" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/21/1-tip-and-bug/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">#1 tip and bug</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/iOS/" style="font-size: 10px;">iOS</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/21/2-Objective-C-Generics/">#2 Objective-C Generics</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/21/1-tip-and-bug/">#1 tip and bug</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/17/0-inset与offset/">#0 inset与offset</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Lily<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

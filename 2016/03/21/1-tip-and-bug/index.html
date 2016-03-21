@@ -15,14 +15,12 @@
 <meta property="og:description" content="记录一下最近遇到的一些问题
   1、UISider不能够滑动  
   UISider是UIKit框架中的一个滑动控件，继承自UIControl,在demo中用sb拖slider控件，然后用代码画view，运行的时候slider不能滑动。查找以后是view和slier的边界重叠了，slider的layer层被覆盖后就不能响应用户事件了，尽管只有边上的一角重叠覆盖，而且slider要滑动，heig">
-<meta property="og:image" content="https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007899">
-<meta property="og:updated_time" content="2016-03-21T03:51:42.000Z">
+<meta property="og:updated_time" content="2016-03-21T07:40:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="#1 tip and bug">
 <meta name="twitter:description" content="记录一下最近遇到的一些问题
   1、UISider不能够滑动  
   UISider是UIKit框架中的一个滑动控件，继承自UIControl,在demo中用sb拖slider控件，然后用代码画view，运行的时候slider不能滑动。查找以后是view和slier的边界重叠了，slider的layer层被覆盖后就不能响应用户事件了，尽管只有边上的一角重叠覆盖，而且slider要滑动，heig">
-<meta name="twitter:image" content="https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007899">
   
     <link rel="alternate" href="/atom.xml" title="Lily&#39;s kara" type="application/atom+xml">
   
@@ -115,7 +113,7 @@
 //itune
 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewAlbum?i=156093464&amp;id=156093462&amp;s=143441&quot;]];
 </code></pre><p>  如果Mac或iOS上没有该APP，那么将displays an appropriate warning </p>
-<p>  <img src="https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007899" alt="Apple Developer"> </p>
+<p>  <a href="https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007899" target="_blank" rel="external">Apple Developer</a> </p>
 <p>  3、自定义view动画未展示</p>
 <p>  自定义一个控件加入了动画，在tableview cell中使用的时候没有动画，是因为监听通知里面reload tableview，导致cell reload了一遍控件的动画被覆盖了。解决方法是对监听的通知打上tag，只有正确tag的通知才reload。</p>
 <p>  下一篇将详细解释贝塞尔曲线…</p>
@@ -123,7 +121,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://leelili.github.io/2016/03/21/1-tip-and-bug/" data-id="cim1g8ykh0001jvtxcd7crxjm" class="article-share-link">Share</a>
+      <a data-url="http://leelili.github.io/2016/03/21/1-tip-and-bug/" data-id="cim1oc8nr0006gjtx0hzd9zqe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
@@ -133,6 +131,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/03/21/2-Objective-C-Generics/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          #2 Objective-C Generics
+        
+      </div>
+    </a>
   
   
     <a href="/2016/03/17/0-inset与offset/" id="article-nav-older" class="article-nav-link-wrap">
@@ -186,6 +193,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/03/21/2-Objective-C-Generics/">#2 Objective-C Generics</a>
+          </li>
         
           <li>
             <a href="/2016/03/21/1-tip-and-bug/">#1 tip and bug</a>
