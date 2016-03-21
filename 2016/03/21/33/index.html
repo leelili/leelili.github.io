@@ -4,13 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>#0 inset与offset | Lily&#39;s kara</title>
+    <title>33 | Lily&#39;s kara</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Lily">
     
-    <meta name="description" content="在iOS的开发中，用代码写界面时会遇到一些容易混淆的概念，比如bounds和frame，anchorPoint和position，inset和offset等等。先来看看inset与offset的官方定义。
-UIEdgeInsets&amp;gt;   Defines inset distances for ">
+    <meta name="description" content="fsdaaaaaaaaaaaaaaaaaaaaaaaaa">
     
     
     
@@ -66,15 +65,15 @@ UIEdgeInsets&amp;gt;   Defines inset distances for ">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/17/0-inset与offset/" title="#0 inset与offset" itemprop="url">#0 inset与offset</a>
+      <a href="/2016/03/21/33/" title="33" itemprop="url">33</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://leelili.github.io" title="Lily">Lily</a>
     </p>
   <p class="article-time">
-    <time datetime="2016-03-17T06:01:09.000Z" itemprop="datePublished">2016-03-17</time>
-    更新日期:<time datetime="2016-03-17T10:50:49.000Z" itemprop="dateModified">2016-03-17</time>
+    <time datetime="2016-03-21T03:38:57.000Z" itemprop="datePublished">2016-03-21</time>
+    更新日期:<time datetime="2016-03-21T03:39:23.000Z" itemprop="dateModified">2016-03-21</time>
     
   </p>
 </header>
@@ -83,52 +82,20 @@ UIEdgeInsets&amp;gt;   Defines inset distances for ">
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UIEdgeInsets"><span class="toc-number">1.</span> <span class="toc-text">UIEdgeInsets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UIOffset"><span class="toc-number">2.</span> <span class="toc-text">UIOffset</span></a></li></ol>
+		
 		</div>
 		
-		<p>在iOS的开发中，用代码写界面时会遇到一些容易混淆的概念，比如bounds和frame，anchorPoint和position，inset和offset等等。先来看看inset与offset的官方定义。</p>
-<h2 id="UIEdgeInsets"><a href="#UIEdgeInsets" class="headerlink" title="UIEdgeInsets"></a>UIEdgeInsets</h2><p>&gt;<br>   Defines inset distances for views</p>
-<pre><code>&apos;&apos;&apos;
-
-typedef struct { 
-    CGFloat top, left , bottom, right ;
- } UIEdgeInsets;
-
-&apos;&apos;&apos;
-</code></pre><p>指的是一个view边框距离四周的距离，也就是上、下、左、右。相较于原始位置，正值表示压缩了，负值表示拉伸了。<br>在保证某一边的边距能够满足的情况下，修改另一边的边距不会造成view的高度或者宽度改变，也就是不会被压缩；如果另一边已经到达临界值，在继续调整就会产生压缩。<br>Button控件有三个属性contentEdgeInsets, titleEdgeInsets, imageEdgeInset,分别对应content、title、image的inset，而content包括了title和image，能够同时影响它们。title和image的偏移是相较于当前位置的。<br>比如页面上有一个button，其中有title和image，然后配置它们的inset这个属性。原始是这样的： </p>
-<p><img src="/images/button1.png" alt=""></p>
-<pre><code>- (void)configButton {
- self.btn.imageEdgeInsets = UIEdgeInsetsMake(20,60,80,60);
- self.btn.titleEdgeInsets = UIEdgeInsetsMake(40, -160, 0,0);
- self.btn.contentEdgeInsets = UIEdgeInsetsMake(10,0, 0, 0);
- }  
-</code></pre><p>   修改inset之后，button的title和image变成了这样，能够看出来image被压缩了并且向右移动，title向左移动了：</p>
-<p>   <img src="/images/button2.png" alt=""> </p>
-<h2 id="UIOffset"><a href="#UIOffset" class="headerlink" title="UIOffset"></a>UIOffset</h2><p>&gt;<br>   Defines a structure that specifies an amount to offset a position.</p>
-<pre><code>typedef struct UIOffset { 
-    CGFloat horizontal, vertical 
-} UIOffset;
-</code></pre><p>offset指的是一个point相对于源point的相对位移。在scrollview及其子类有一个属性contentOffset,就是content的origin与scrollview的origin的相对位移，当scrollview滑动的时候，visible area是不变的，动的是content view，所以才会有offset。iOS的基本坐标系是原点在左上角的，当content滚动到上面的时候，y &lt; 0,offset &gt; 0。</p>
-<p><img src="/images/coordinate.jpeg" alt=""></p>
-<p>可以用一个公式归纳： </p>
-<pre><code>offset = (0,0) - (content.origin.x,content.origin.y)
-</code></pre><p> scrollView也有contentInset属性，比如contentInset = (-100, -100,0,0),content的origin就是（-100，-100），这时contentOffset = (100,100)。</p>
-<p> 具体的用法参见苹果官方开发者文档。</p>
+		<p>fsdaaaaaaaaaaaaaaaaaaaaaaaaa</p>
   
 	</div>
 		<footer class="article-footer clearfix">
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/ios/">ios</a>
-  </div>
 
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://leelili.github.io/2016/03/17/0-inset与offset/" data-title="#0 inset与offset | Lily&#39;s kara" data-tsina="null" class="share clearfix">
+  <div data-url="http://leelili.github.io/2016/03/21/33/" data-title="33 | Lily&#39;s kara" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -137,14 +104,14 @@ typedef struct {
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/03/21/33/" title="33">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  33</span>
+
+<div class="next">
+<a href="/2016/03/17/0-inset与offset/"  title="#0 inset与offset">
+ <strong>NEXT:</strong><br/> 
+ <span>#0 inset与offset
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -154,7 +121,7 @@ typedef struct {
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UIEdgeInsets"><span class="toc-number">1.</span> <span class="toc-text">UIEdgeInsets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UIOffset"><span class="toc-number">2.</span> <span class="toc-text">UIOffset</span></a></li></ol>
+  
   </div>
 
 <div id="asidepart">
