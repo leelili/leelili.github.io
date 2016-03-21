@@ -74,7 +74,7 @@ UIEdgeInsets&amp;gt;   Defines inset distances for ">
     </p>
   <p class="article-time">
     <time datetime="2016-03-17T06:01:09.000Z" itemprop="datePublished">2016-03-17</time>
-    更新日期:<time datetime="2016-03-17T09:32:50.000Z" itemprop="dateModified">2016-03-17</time>
+    更新日期:<time datetime="2016-03-17T10:50:49.000Z" itemprop="dateModified">2016-03-17</time>
     
   </p>
 </header>
@@ -88,10 +88,14 @@ UIEdgeInsets&amp;gt;   Defines inset distances for ">
 		
 		<p>在iOS的开发中，用代码写界面时会遇到一些容易混淆的概念，比如bounds和frame，anchorPoint和position，inset和offset等等。先来看看inset与offset的官方定义。</p>
 <h2 id="UIEdgeInsets"><a href="#UIEdgeInsets" class="headerlink" title="UIEdgeInsets"></a>UIEdgeInsets</h2><p>&gt;<br>   Defines inset distances for views</p>
-<pre><code>typedef struct { 
+<pre><code>&apos;&apos;&apos;
+
+typedef struct { 
     CGFloat top, left , bottom, right ;
  } UIEdgeInsets;
-</code></pre><p>指的是一个view边框距离四周的距离，也就是上、下、左、右。相较于原始位置，正值表示压缩了，负值表示拉伸了。<br>Button控件有三个属性contentEdgeInsets, titleEdgeInsets, imageEdgeInset,分别对应content、title、image的inset，而content包括了title和image，能够同时影响它们。title和image的偏移是相较于当前位置的。<br>比如页面上有一个button，其中有title和image，然后配置它们的inset这个属性。原始是这样的： </p>
+
+&apos;&apos;&apos;
+</code></pre><p>指的是一个view边框距离四周的距离，也就是上、下、左、右。相较于原始位置，正值表示压缩了，负值表示拉伸了。<br>在保证某一边的边距能够满足的情况下，修改另一边的边距不会造成view的高度或者宽度改变，也就是不会被压缩；如果另一边已经到达临界值，在继续调整就会产生压缩。<br>Button控件有三个属性contentEdgeInsets, titleEdgeInsets, imageEdgeInset,分别对应content、title、image的inset，而content包括了title和image，能够同时影响它们。title和image的偏移是相较于当前位置的。<br>比如页面上有一个button，其中有title和image，然后配置它们的inset这个属性。原始是这样的： </p>
 <p><img src="/images/button1.png" alt=""></p>
 <pre><code>- (void)configButton {
  self.btn.imageEdgeInsets = UIEdgeInsetsMake(20,60,80,60);
