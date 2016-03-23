@@ -57,22 +57,22 @@
 
 
 
-<meta name="description" content="原文
-  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  
-泛型是什么Objective-C现在可以声明一个NSArray为NSArray&amp;lt; NSString* &amp;gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIIm">
+<meta name="description" content="UIBezierPath属于UIKit框架，用来自定义线段、曲线渲染到view上。最开始贝塞尔曲线的发明者是法国数学家皮埃尔·贝塞尔，奠定了计算机矢量图形学的基础。
+  贝塞尔曲线的含义：给定n+1个数据点，p0(x0 , y0)  …  pn(xn , yn)，生成一条曲线，使得该曲线与这些点所连结的折线相近。看似简单的圆其实要完全拟合不会十分精确，但是利用三阶贝塞尔曲线可以拟合一个1/4圆">
 <meta property="og:type" content="article">
-<meta property="og:title" content="#2 Objective-C Generics">
-<meta property="og:url" content="http://leelili.github.io/2016/03/21/2-Objective-C-Generics/index.html">
+<meta property="og:title" content="#3 用UIBezierPath 画一个圆">
+<meta property="og:url" content="http://leelili.github.io/2016/03/22/3-用UIBezierPath-画一个圆/index.html">
 <meta property="og:site_name" content="Lily's kara">
-<meta property="og:description" content="原文
-  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  
-泛型是什么Objective-C现在可以声明一个NSArray为NSArray&amp;lt; NSString* &amp;gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIIm">
-<meta property="og:updated_time" content="2016-03-21T07:50:11.000Z">
+<meta property="og:description" content="UIBezierPath属于UIKit框架，用来自定义线段、曲线渲染到view上。最开始贝塞尔曲线的发明者是法国数学家皮埃尔·贝塞尔，奠定了计算机矢量图形学的基础。
+  贝塞尔曲线的含义：给定n+1个数据点，p0(x0 , y0)  …  pn(xn , yn)，生成一条曲线，使得该曲线与这些点所连结的折线相近。看似简单的圆其实要完全拟合不会十分精确，但是利用三阶贝塞尔曲线可以拟合一个1/4圆">
+<meta property="og:image" content="http://static.zybuluo.com/devinshine/rq9l1712aeyo62l0wsyetj32/jiangjietu.png">
+<meta property="og:image" content="http://leelili.github.io/images/circle.png">
+<meta property="og:updated_time" content="2016-03-23T01:09:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="#2 Objective-C Generics">
-<meta name="twitter:description" content="原文
-  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  
-泛型是什么Objective-C现在可以声明一个NSArray为NSArray&amp;lt; NSString* &amp;gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIIm">
+<meta name="twitter:title" content="#3 用UIBezierPath 画一个圆">
+<meta name="twitter:description" content="UIBezierPath属于UIKit框架，用来自定义线段、曲线渲染到view上。最开始贝塞尔曲线的发明者是法国数学家皮埃尔·贝塞尔，奠定了计算机矢量图形学的基础。
+  贝塞尔曲线的含义：给定n+1个数据点，p0(x0 , y0)  …  pn(xn , yn)，生成一条曲线，使得该曲线与这些点所连结的折线相近。看似简单的圆其实要完全拟合不会十分精确，但是利用三阶贝塞尔曲线可以拟合一个1/4圆">
+<meta name="twitter:image" content="http://static.zybuluo.com/devinshine/rq9l1712aeyo62l0wsyetj32/jiangjietu.png">
 
 
 
@@ -90,7 +90,7 @@
   };
 </script>
 
-  <title> #2 Objective-C Generics | Lily's kara </title>
+  <title> #3 用UIBezierPath 画一个圆 | Lily's kara </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -210,7 +210,7 @@
             
             
               
-                #2 Objective-C Generics
+                #3 用UIBezierPath 画一个圆
               
             
           </h1>
@@ -222,8 +222,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-21T14:31:06+08:00" content="2016-03-21">
-              2016-03-21
+            <time itemprop="dateCreated" datetime="2016-03-22T23:36:39+08:00" content="2016-03-22">
+              2016-03-22
             </time>
           </span>
 
@@ -249,12 +249,57 @@
       
 
       
-        <p><a href="http://www.russbishop.net/objective-c-generics" target="_blank" rel="external">原文</a></p>
-<p>  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  </p>
-<h1 id="泛型是什么"><a href="#泛型是什么" class="headerlink" title="泛型是什么"></a>泛型是什么</h1><p>Objective-C现在可以声明一个NSArray为NSArray&lt; NSString* &gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIImage*，会给出警告。但是真正有用是在和系统框架交互时，因为现在Swift里UIView.subviews返回值为Array&lt; UIView &gt; 而不是Array&lt; AnyObject &gt;。在桥接Objective-C老代码时也很有用，因为Swift所有集合自动执行此信息。  </p>
-<p>__kindof关键字指定必须是X或其子类。为什么需要指定呢？文档没有说明这点但是我推测是因为把泛型加入Objective-C中带来了巨大的复杂的问题：如果UIView.subviews是NSArray&lt; UIView* &gt;,那么根据编译器类型检查器一大片代码将失效：[view.subviews[0] setImage:nil]就是错误的因为UIView没有一个image的属性。我们早已经被Objective-C编译器允许让你向一个id发送消息宠坏了，但现在子视图数组不会返回id，返回UIView*。</p>
-<p>__kindof解决了这个问题，它声明了子视图数组不是隐式的UIView*类型的数组，而是UIView*子类型的数组。因此编译器可以让你发送任何UIView*或者其所有子类能够响应的消息，或者给数组赋值一个UIImageView*类型的元素，但是如果你试图：NSNumber *n = view.subviews[0]编译器仍然会警告。</p>
-<h1 id="泛型的限制"><a href="#泛型的限制" class="headerlink" title="泛型的限制"></a>泛型的限制</h1><p>这有个重要的局限：只有内置的集合类型能用这项新的机制从Swift桥接；自定义的方法和泛型类不起作用。(也许有一天Objective-C能够提供全部泛型支持，不过那将是一条痛苦曲折之路。)</p>
+        <p>  UIBezierPath属于UIKit框架，用来自定义线段、曲线渲染到view上。最开始贝塞尔曲线的发明者是法国数学家皮埃尔·贝塞尔，奠定了计算机矢量图形学的基础。</p>
+<p>  贝塞尔曲线的含义：给定n+1个数据点，p0(x0 , y0)  …  pn(xn , yn)，生成一条曲线，使得该曲线与这些点所连结的折线相近。看似简单的圆其实要完全拟合不会十分精确，但是利用三阶贝塞尔曲线可以拟合一个1/4圆，然后绘制4个1/4圆组成一个圆。  </p>
+<p>  四条贝塞尔曲线，每条曲线有4个控制点拟合一个1/4圆，比如P0、P1、P2、P3这四个点。</p>
+<p>  <img src="http://static.zybuluo.com/devinshine/rq9l1712aeyo62l0wsyetj32/jiangjietu.png" alt="">  </p>
+<p>  现在主要任务是求出P1和P2两点的坐标，根据<a href="http://blog.csdn.net/nibiewuxuanze/article/details/48103059" target="_blank" rel="external">这篇文章</a>得知最佳参数M = 0.552，它的含义是：当正方形边长的1/2是1时，也可以理解为圆的半径是1，offset(即P0P1,P2P3,P3P4,P5P6…) = M = 0.552,是最佳拟合1/4圆的，比例系数是1/0.552。所以可以根据此参数绘制贝塞尔曲线。</p>
+<pre><code>- (void)drawInContext:(CGContextRef)ctx {
+
+   //outsideRect 外接矩形
+   CGFloat offset = self.outsideRect.size.width / 3.6;
+
+   CGPoint rectCenter = CGPointMake(self.outsideRect.origin.x + self.outsideRect.size.width/2 , self.outsideRect.origin.y + self.outsideRect.size.height/2);
+
+   CGPoint pointA = CGPointMake(rectCenter.x, self.outsideRect.origin.y);
+   CGPoint pointB = CGPointMake(rectCenter.x + self.outsideRect.size.width/2, rectCenter.y);
+   CGPoint pointC = CGPointMake(rectCenter.x, rectCenter.y + self.outsideRect.size.height/2);
+   CGPoint pointD = CGPointMake(self.outsideRect.origin.x, rectCenter.y);
+
+   CGPoint c1 = CGPointMake(pointA.x + offset, pointA.y);
+   CGPoint c2 = CGPointMake(pointB.x,pointB.y - offset);
+   CGPoint c3 = CGPointMake(pointB.x,pointB.y + offset);
+   CGPoint c4 = CGPointMake(pointC.x + offset, pointC.y);
+   CGPoint c5 = CGPointMake(pointC.x - offset, pointC.y);
+   CGPoint c6 = CGPointMake(pointD.x,pointD.y + offset);
+   CGPoint c7 = CGPointMake(pointD.x,pointD.y - offset);
+   CGPoint c8 = CGPointMake(pointA.x - offset, pointA.y);
+
+   UIBezierPath *circlePath = [UIBezierPath bezierPath];
+   [circlePath moveToPoint:pointA];
+   [circlePath addCurveToPoint:pointB controlPoint1:c1 controlPoint2:c2];
+   [circlePath addCurveToPoint:pointC controlPoint1:c3 controlPoint2:c4];
+   [circlePath addCurveToPoint:pointD controlPoint1:c5 controlPoint2:c6];
+   [circlePath addCurveToPoint:pointA controlPoint1:c7 controlPoint2:c8];
+   [circlePath closePath];
+
+   UIBezierPath *rectPath = [UIBezierPath bezierPathWithRect:self.outsideRect];
+   //画出外接矩形
+   CGContextAddPath(ctx, rectPath.CGPath);
+   CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+   CGContextSetLineWidth(ctx, 1.0);
+   CGFloat dash[] = {5.0,5.0};
+   CGContextSetLineDash(ctx, 0.0, dash, 2);
+   CGContextStrokePath(ctx);
+
+   //画贝塞尔曲线
+   CGContextAddPath(ctx, circlePath.CGPath);
+   CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+   CGContextSetFillColorWithColor(ctx, [UIColor redColor].CGColor);
+   CGContextSetLineDash(ctx, 0.0, NULL, 0.0);
+   CGContextDrawPath(ctx, kCGPathFillStroke);
+  }
+</code></pre><p> 这样一个圆就画好了<br>   <img src="/images/circle.png" alt=""></p>
 
       
     </div>
@@ -278,17 +323,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/21/1-tip-and-bug/" rel="next" title="#1 tip and bug">
-                <i class="fa fa-chevron-left"></i> #1 tip and bug
+              <a href="/2016/03/21/2-Objective-C-Generics/" rel="next" title="#2 Objective-C Generics">
+                <i class="fa fa-chevron-left"></i> #2 Objective-C Generics
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/22/3-用UIBezierPath-画一个圆/" rel="prev" title="#3 用UIBezierPath 画一个圆">
-                #3 用UIBezierPath 画一个圆 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -400,7 +441,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型是什么"><span class="nav-number">1.</span> <span class="nav-text">泛型是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型的限制"><span class="nav-number">2.</span> <span class="nav-text">泛型的限制</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
