@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS," />
+  <meta name="keywords" content="Bug," />
 
 
 
@@ -57,22 +57,19 @@
 
 
 
-<meta name="description" content="原文
-  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  
-泛型是什么Objective-C现在可以声明一个NSArray为NSArray&amp;lt; NSString* &amp;gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIIm">
+<meta name="description" content="上周在做滑动图片平滑切换的时候，需要动态的改变tableViewCell高度，查了一些文档后发现beginUpdates 和 endUpdates可以实现cell的插入、删除、选中操作，在这两个方法中会走一遍tableView dataSource方法，这样就能获得当前cell的高度，只需要计算此时需要显示的高度就OK。
+但是在图片滑动时候会大量的调用begin和end这两个方法，导致dataso">
 <meta property="og:type" content="article">
-<meta property="og:title" content="#2 Objective-C Generics">
-<meta property="og:url" content="http://leelili.github.io/2016/03/21/2-Objective-C-Generics/index.html">
+<meta property="og:title" content=" begin/end updates">
+<meta property="og:url" content="http://leelili.github.io/2016/05/04/begin-end-updates/index.html">
 <meta property="og:site_name" content="Lily's kara">
-<meta property="og:description" content="原文
-  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  
-泛型是什么Objective-C现在可以声明一个NSArray为NSArray&amp;lt; NSString* &amp;gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIIm">
-<meta property="og:updated_time" content="2016-03-21T07:50:11.000Z">
+<meta property="og:description" content="上周在做滑动图片平滑切换的时候，需要动态的改变tableViewCell高度，查了一些文档后发现beginUpdates 和 endUpdates可以实现cell的插入、删除、选中操作，在这两个方法中会走一遍tableView dataSource方法，这样就能获得当前cell的高度，只需要计算此时需要显示的高度就OK。
+但是在图片滑动时候会大量的调用begin和end这两个方法，导致dataso">
+<meta property="og:updated_time" content="2016-05-04T03:58:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="#2 Objective-C Generics">
-<meta name="twitter:description" content="原文
-  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  
-泛型是什么Objective-C现在可以声明一个NSArray为NSArray&amp;lt; NSString* &amp;gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIIm">
+<meta name="twitter:title" content=" begin/end updates">
+<meta name="twitter:description" content="上周在做滑动图片平滑切换的时候，需要动态的改变tableViewCell高度，查了一些文档后发现beginUpdates 和 endUpdates可以实现cell的插入、删除、选中操作，在这两个方法中会走一遍tableView dataSource方法，这样就能获得当前cell的高度，只需要计算此时需要显示的高度就OK。
+但是在图片滑动时候会大量的调用begin和end这两个方法，导致dataso">
 
 
 
@@ -90,7 +87,7 @@
   };
 </script>
 
-  <title> #2 Objective-C Generics | Lily's kara </title>
+  <title>  begin/end updates | Lily's kara </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -210,7 +207,7 @@
             
             
               
-                #2 Objective-C Generics
+                 begin/end updates
               
             
           </h1>
@@ -222,8 +219,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-21T14:31:06+08:00" content="2016-03-21">
-              2016-03-21
+            <time itemprop="dateCreated" datetime="2016-05-04T11:43:58+08:00" content="2016-05-04">
+              2016-05-04
             </time>
           </span>
 
@@ -249,12 +246,11 @@
       
 
       
-        <p><a href="http://www.russbishop.net/objective-c-generics" target="_blank" rel="external">原文</a></p>
-<p>  在Xcode7中Clang加入了一项新的技能：Objective-C generics(泛型)。我已开始在那些不能忍受的遗留代码上应用这个特性。即使没有Swift操作结果我也可以使用泛型。  </p>
-<h1 id="泛型是什么"><a href="#泛型是什么" class="headerlink" title="泛型是什么"></a>泛型是什么</h1><p>Objective-C现在可以声明一个NSArray为NSArray&lt; NSString* &gt;。对于在Objective-C中很有帮助，因为如果你尝试从这个数组中获取UIImage*，会给出警告。但是真正有用是在和系统框架交互时，因为现在Swift里UIView.subviews返回值为Array&lt; UIView &gt; 而不是Array&lt; AnyObject &gt;。在桥接Objective-C老代码时也很有用，因为Swift所有集合自动执行此信息。  </p>
-<p>__kindof关键字指定必须是X或其子类。为什么需要指定呢？文档没有说明这点但是我推测是因为把泛型加入Objective-C中带来了巨大的复杂的问题：如果UIView.subviews是NSArray&lt; UIView* &gt;,那么根据编译器类型检查器一大片代码将失效：[view.subviews[0] setImage:nil]就是错误的因为UIView没有一个image的属性。我们早已经被Objective-C编译器允许让你向一个id发送消息宠坏了，但现在子视图数组不会返回id，返回UIView*。</p>
-<p>__kindof解决了这个问题，它声明了子视图数组不是隐式的UIView*类型的数组，而是UIView*子类型的数组。因此编译器可以让你发送任何UIView*或者其所有子类能够响应的消息，或者给数组赋值一个UIImageView*类型的元素，但是如果你试图：NSNumber *n = view.subviews[0]编译器仍然会警告。</p>
-<h1 id="泛型的限制"><a href="#泛型的限制" class="headerlink" title="泛型的限制"></a>泛型的限制</h1><p>这有个重要的局限：只有内置的集合类型能用这项新的机制从Swift桥接；自定义的方法和泛型类不起作用。(也许有一天Objective-C能够提供全部泛型支持，不过那将是一条痛苦曲折之路。)</p>
+        <p>上周在做滑动图片平滑切换的时候，需要动态的改变tableViewCell高度，查了一些文档后发现beginUpdates 和 endUpdates可以实现cell的插入、删除、选中操作，在这两个方法中会走一遍tableView dataSource方法，这样就能获得当前cell的高度，只需要计算此时需要显示的高度就OK。</p>
+<p>但是在图片滑动时候会大量的调用begin和end这两个方法，导致datasource的方法也大量调用了，产生的后果就是偶发性crash和UI错位。根据官方文档begin和end应该成对出现，可以嵌套，用来实现cell的插入、删除、移动等操作，但是如果这两个方法之间什么操作都没有，可能会导致tableView的某些属性失效，比如row count.</p>
+<p>考虑到这个bug后果很严重，而且依赖于系统tableView的调用机制，利用了begin和end updates方法的特性，在中间加上了一行代码。  </p>
+<pre><code>[self.tableView moveRowAtIndexPath:indexPath toIndexPath:indexPath];  
+</code></pre><p>这样算是绕过了tableView begin和endupdates的限制。<br>但是这样的风险就是如果以后苹果对该方法做了优化或者检查，同样会导致不可预估的后果发生。</p>
 
       
     </div>
@@ -269,7 +265,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
+            <a href="/tags/Bug/" rel="tag">#Bug</a>
           
         </div>
       
@@ -278,17 +274,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/21/1-tip-and-bug/" rel="next" title="#1 tip and bug">
-                <i class="fa fa-chevron-left"></i> #1 tip and bug
+              <a href="/2016/03/22/3-用UIBezierPath-画一个圆/" rel="next" title="#3 用UIBezierPath 画一个圆">
+                <i class="fa fa-chevron-left"></i> #3 用UIBezierPath 画一个圆
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/22/3-用UIBezierPath-画一个圆/" rel="prev" title="#3 用UIBezierPath 画一个圆">
-                #3 用UIBezierPath 画一个圆 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -400,7 +392,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型是什么"><span class="nav-number">1.</span> <span class="nav-text">泛型是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型的限制"><span class="nav-number">2.</span> <span class="nav-text">泛型的限制</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

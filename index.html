@@ -206,6 +206,99 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/04/begin-end-updates/" itemprop="url">
+                   begin/end updates
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-05-04T11:43:58+08:00" content="2016-05-04">
+              2016-05-04
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>上周在做滑动图片平滑切换的时候，需要动态的改变tableViewCell高度，查了一些文档后发现beginUpdates 和 endUpdates可以实现cell的插入、删除、选中操作，在这两个方法中会走一遍tableView dataSource方法，这样就能获得当前cell的高度，只需要计算此时需要显示的高度就OK。</p>
+<p>但是在图片滑动时候会大量的调用begin和end这两个方法，导致datasource的方法也大量调用了，产生的后果就是偶发性crash和UI错位。根据官方文档begin和end应该成对出现，可以嵌套，用来实现cell的插入、删除、移动等操作，但是如果这两个方法之间什么操作都没有，可能会导致tableView的某些属性失效，比如row count.</p>
+<p>考虑到这个bug后果很严重，而且依赖于系统tableView的调用机制，利用了begin和end updates方法的特性，在中间加上了一行代码。  </p>
+<pre><code>[self.tableView moveRowAtIndexPath:indexPath toIndexPath:indexPath];  
+</code></pre><p>这样算是绕过了tableView begin和endupdates的限制。<br>但是这样的风险就是如果以后苹果对该方法做了优化或者检查，同样会导致不可预估的后果发生。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/22/3-用UIBezierPath-画一个圆/" itemprop="url">
                   #3 用UIBezierPath 画一个圆
                 </a>
@@ -688,7 +781,7 @@ typedef struct {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -698,7 +791,7 @@ typedef struct {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
